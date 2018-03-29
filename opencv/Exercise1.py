@@ -6,10 +6,12 @@
 # @File: Exercise2.py
 # @Problem:
 # 计算机视觉第一次作业
+# 实现均值过滤，高斯过滤，sobel算子，prewitt算子
 
 from cv2 import *
 import numpy
 from scipy import ndimage
+
 
 
 #实现卷积运算
