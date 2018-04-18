@@ -18,23 +18,23 @@ from scipy import ndimage
 def myConvolve(input,kernel):#传入图片和卷积核
     shapeImg = input.shape
     shapeKernel = kernel.shape
-    WImg = shapeImg[0];#获取图片的宽
-    HImg = shapeImg[1];#获取图片的高
-    Wkernel = shapeKernel[0];#获取卷积核的宽
-    Hkernel = shapeKernel[1];#获取卷积核的高
-    AddW = (Wkernel-1)/2;#边界扩充
-    AddH = (Hkernel-1)/2;
-    WbigImg = WImg + AddW*2;#扩充后的宽
-    HbigImg = HImg + AddH*2;#扩充后的高
+    WImg = shapeImg[0]#获取图片的宽
+    HImg = shapeImg[1]#获取图片的高
+    Wkernel = shapeKernel[0]#获取卷积核的宽
+    Hkernel = shapeKernel[1]#获取卷积核的高
+    AddW = (Wkernel-1)/2#边界扩充
+    AddH = (Hkernel-1)/2
+    WbigImg = WImg + AddW*2#扩充后的宽
+    HbigImg = HImg + AddH*2#扩充后的高
 
     bigImg = numpy.zeros([WbigImg,HbigImg]);#初始化一张扩充的图片
-    bigImg[AddW:AddW+WImg,AddH:AddH+HImg] = input[:,:];#将原图拷贝进去
+    bigImg[AddW:AddW+WImg,AddH:AddH+HImg] = input[:,:]#将原图拷贝进去
 
-    output = numpy.zeros_like(a=bigImg);#初始化一张计算后用作输出的图片
+    output = numpy.zeros_like(a=bigImg)#初始化一张计算后用作输出的图片
 
     for i in range(AddW,AddW+WImg):#矩阵卷积计算
         for j in range(AddH,AddH+HImg):
-            output[i][j] = int(numpy.sum(bigImg[i-AddW:i+AddW+1,j-AddW:j+AddW+1]*kernel));#计算平均值
+            output[i][j] = int(numpy.sum(bigImg[i-AddW:i+AddW+1,j-AddW:j+AddW+1]*kernel))#计算平均值
 
     return output[AddW:AddW+WImg,AddH:AddH+HImg]
 
@@ -45,12 +45,12 @@ def myAverage(img,kernel):
 
 #生成高斯矩阵
 def myGaussian(sigma):#传入方差
-    width = heigh = 2*sigma+1;
+    width = heigh = 2*sigma+1
     gaussianmap = numpy.zeros([width,width])#初始化相应大小矩阵
     for x in range(-sigma,sigma+1):
         for y in range(-sigma,sigma+1):
-            gaussianmap[x+sigma][y+sigma] = numpy.exp(-0.5*(x**2+y**2)/(sigma**2));#高斯函数求值
-    return  gaussianmap;
+            gaussianmap[x+sigma][y+sigma] = numpy.exp(-0.5*(x**2+y**2)/(sigma**2))#高斯函数求值
+    return  gaussianmap
 
 
 #Sobel Edge
